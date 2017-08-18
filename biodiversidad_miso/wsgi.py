@@ -1,5 +1,5 @@
 """
-WSGI config for biodeversidad_miso project.
+WSGI config for biodiversidad_miso project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
