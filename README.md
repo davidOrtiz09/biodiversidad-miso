@@ -1,2 +1,2 @@
 # biodiversidad-miso
-Investigación tecnologica MISO - grupo 2
+Investigación tecnologica MISO - Grupo 2
