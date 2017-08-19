@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-from biodiversidad_miso.local_settings import DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USERNAME, DATABASE_NAME, DATABASE_PORT
+from biodiversidad_miso.local_settings import DATABASE_DICT
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -77,14 +77,7 @@ WSGI_APPLICATION = 'biodiversidad_miso.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DATABASE_NAME,
-        'USER': DATABASE_USERNAME,
-        'PASSWORD': DATABASE_PASSWORD,
-        'HOST': DATABASE_HOST,
-        'PORT': DATABASE_PORT,
-    }
+    'default': DATABASE_DICT
 }
 
 
