@@ -2,16 +2,32 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from biodiversidad_app.models import Species
+from biodiversidad_app.models import Species, Comment
+
+
+class CommentsInline(admin.TabularInline):
+    model = Comment
+    extra = 0
+    readonly_fields = ('date_created', )
 
 
 class SpeciesAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'scientific_name')
     list_display_links = ('id', 'name', 'scientific_name')
     search_fields = ('name', 'scientific_name')
+    inlines = (CommentsInline, )
+
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'email', 'date_created')
+    list_display_links = ('id', 'email')
+    search_fields = ('email', )
+    list_filter = ('date_created', )
+    readonly_fields = ('date_created', )
 
 admin.site.site_title = 'Biodiversidad G2'
 admin.site.site_header = 'Biodiversidad G2'
 admin.site.index_title = 'Procesos ágiles de desarrollo: Grupo 2'
 
 admin.site.register(Species, SpeciesAdmin)
+admin.site.register(Comment, CommentAdmin)

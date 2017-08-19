@@ -26,7 +26,7 @@ SECRET_KEY = ')3(3j=f(po)aw(w2%=))^i&xeq5#=f8kvobva6zpe6(95d$rk^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['biodiversidad-miso-g4.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'g2-biodiversidad-miso.herokuapp.com']
 
 
 # Application definition
