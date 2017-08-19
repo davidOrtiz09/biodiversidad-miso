@@ -6,3 +6,4 @@ from django.apps import AppConfig
 
 class BiodiversidadAppConfig(AppConfig):
     name = 'biodiversidad_app'
+    verbose_name = 'Biodiversidad App'
