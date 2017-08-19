@@ -10,8 +10,8 @@ class SpeciesAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name', 'scientific_name')
     search_fields = ('name', 'scientific_name')
 
-admin.site.site_title = 'Procesos ágiles de desarrollo: Grupo 4'
-admin.site.site_header = 'Header'
-admin.site.index_title = 'Index'
+admin.site.site_title = 'Biodiversidad G4'
+admin.site.site_header = 'Biodiversidad G4'
+admin.site.index_title = 'Procesos ágiles de desarrollo: Grupo 4'
 
 admin.site.register(Species, SpeciesAdmin)
