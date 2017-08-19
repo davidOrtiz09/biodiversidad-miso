@@ -24,5 +24,5 @@ class Species(models.Model):
 
 class Comment(models.Model):
     email = models.EmailField(max_length=150, verbose_name='Email', null=False, blank=False)
-    comment = models.TextField(max_length=1000, blank=True, verbose_name='Comentario', null=False)
+    comment = models.TextField(max_length=1000, verbose_name='Comentario', null=False, blank=False)
     fk_species = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name='Species', null=False, blank=False)
