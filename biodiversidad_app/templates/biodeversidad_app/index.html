@@ -1,4 +1,4 @@
-{% extends 'biodeversidad_app/_common/base.html' %}
+{% extends 'biodeversidad_app/_common/_base.html' %}
 {% block main %}
     <section>
         <div class="container-fluid">
@@ -23,6 +23,9 @@
 </div>
                     </div>
                 {% endfor %}
+                <div class="col-xs-12">
+                    {% include 'biodeversidad_app/_common/_pagination.html' %}
+                </div>
             </div>
         </div>
     </section>
