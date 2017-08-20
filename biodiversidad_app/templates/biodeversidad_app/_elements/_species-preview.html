@@ -1,13 +1,14 @@
-{# TODO Poner los campos dinámicos #}
+
 <div class="panel panel-default">
     <div class="panel-heading">
+        {# TODO: Poner nombre de la categoria #}
         <h3 class="text-center">Nombre de la categoría</h3>
     </div>
     <div class="panel-body">
-        <img src="https://placehold.it/400x400" class="img-responsive center-block" alt="Imagen de la especie">
-        <h4 class="text-center">Nombre de la especie</h4>
+        <img src="{{ species.picture.url }}" class="img-responsive center-block" alt="Imagen de la especie">
+        <h4 class="text-center">{{ species.name }}</h4>
         <div class="species-preview-description">
-            {% lorem 20 w random %}
+             {{ species.short_description }}
         </div>
     </div>
 </div>
