@@ -6,11 +6,21 @@
                 <div class="col-xs-12">
                     <h1 class="text-center">Catálogo de especies de nuestra reserva</h1>
                 </div>
-                {# TODO hacer que el listado sea dinámico #}
-                {% for species in '1234567' %}
-
+                {% for species in species_list %}
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        {% include 'biodeversidad_app/_elements/_species-preview.html'  %}
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                               {# TODO: Poner nombre de la categoria #}
+                            <h3 class="text-center">Nombre de la categoría</h3>
+                           </div>
+                           <div class="panel-body">
+                               <img src="{{ species.picture.url }}" class="img-responsive center-block" alt="Imagen de la especie">
+                               <h4 class="text-center">{{ species.name }}</h4>
+                              <div class="species-preview-description">
+             {{ species.short_description }}
+        </div>
+    </div>
+</div>
                     </div>
                 {% endfor %}
             </div>

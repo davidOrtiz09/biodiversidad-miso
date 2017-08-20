@@ -1,5 +1,8 @@
 .idea/
 BiodiversidadAppEnv/
 biodiversidad_app/migrations/
-*pyc
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 media/
