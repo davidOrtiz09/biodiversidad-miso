@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Species(models.Model):
@@ -34,3 +35,28 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comentario de {0} sobre la especie {1}'.format(self.email, self.fk_species.name)
+
+class AppUser(models.Model):
+    fk_DjangoUser = models.ForeignKey(User, null=False) # Esta campo se habilitará cuando se realice el login del app
+    city = models.TextField(max_length=100, verbose_name='Ciudad',null=False, blank=False)
+    interest = models.TextField(max_length=1000, verbose_name='Interes', null=False, blank=False)
+    picture = models.ImageField(upload_to='species-images', verbose_name='Foto', null=False, blank=False)
+    country = models.TextField(max_length=100, verbose_name='Pais', null=False, blank=False)
+
+    class Meta:
+        verbose_name = 'Usuario'
+        verbose_name_plural = 'Usuarios'
+
+    def __str__(self):
+        return self.fk_DjangoUser.first_name
+
+class FavoriteSpecies(models.Model):
+    fk_appuser_id = models.ForeignKey(AppUser, on_delete=models.CASCADE, verbose_name='IdUsuario', null=False, blank=False)
+    fk_species_id = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name='IdEspecie', null=False, blank=False)
+
+    class Meta:
+        verbose_name = 'Favorito'
+        verbose_name_plural = 'Favoritos'
+
+    def __str__(self):
+        return self.name

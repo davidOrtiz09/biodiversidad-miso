@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from biodiversidad_app.models import Species, Comment
+from biodiversidad_app.models import Species, Comment, AppUser
 
 
 class CommentsInline(admin.TabularInline):
@@ -25,9 +25,16 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ('date_created', )
     readonly_fields = ('date_created', )
 
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('id','fk_DjangoUser','city','interest','country')
+    list_display_links = ('id', )
+    search_fields = ('id',)
+    list_filter = ('id', )
+
 admin.site.site_title = 'Biodiversidad G2'
 admin.site.site_header = 'Biodiversidad G2'
 admin.site.index_title = 'Procesos ágiles de desarrollo: Grupo 2'
 
 admin.site.register(Species, SpeciesAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(AppUser, UserAdmin)
