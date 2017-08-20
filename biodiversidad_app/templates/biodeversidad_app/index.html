@@ -1,4 +1,4 @@
-{% extends 'biodeversidad_app/_common/base.html' %}
+{% extends 'biodeversidad_app/_common/_base.html' %}
 {% block main %}
     <section>
         <div class="container-fluid">
@@ -8,11 +8,13 @@
                 </div>
                 {# TODO hacer que el listado sea dinámico #}
                 {% for species in '1234567' %}
-
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         {% include 'biodeversidad_app/_elements/_species-preview.html'  %}
                     </div>
                 {% endfor %}
+                <div class="col-xs-12">
+                    {% include 'biodeversidad_app/_common/_pagination.html' %}
+                </div>
             </div>
         </div>
     </section>
