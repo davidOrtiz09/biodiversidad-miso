@@ -4,10 +4,19 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User
 
+@python_2_unicode_compatible
+class Category(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Categoría', null=False, blank=False)
+    class Meta:
+        verbose_name = 'Categoría'
+        verbose_name_plural = 'Categorías'
+
+    def __str__(self):
+        return self.name
 
 @python_2_unicode_compatible
 class Species(models.Model):
-    # fk_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría', null=True, blank=True) # Campo propuesto (podría cambiar)
+    fk_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría', null=True, blank=True) # Campo propuesto (podría cambiar)
     name = models.CharField(max_length=150, verbose_name='Nombre', unique=True, null=False, blank=False)
     scientific_name = models.CharField(max_length=150, verbose_name='Nombre científico', unique=True, null=False, blank=False)
     taxonomic_classification = models.CharField(max_length=150, verbose_name='Clasificación taxonómica', null=False, blank=False)
@@ -68,13 +77,3 @@ class AppUser(models.Model):
         return '{0} {1}'.format(self.first_name, self.last_name)
 
 
-@python_2_unicode_compatible
-class Category(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Nombre', unique=True, null=False, blank=False)
-
-    class Meta:
-        verbose_name = 'Categoría'
-        verbose_name_plural = 'Categorías'
-
-    def __str__(self):
-        return self.name
