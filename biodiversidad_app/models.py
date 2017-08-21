@@ -46,7 +46,7 @@ class AppUser(models.Model):
     country = models.CharField(max_length=100, verbose_name='Pais', null=False, blank=False)
     interest = models.TextField(max_length=1000, verbose_name='Interés', null=True, blank=True)
 
-    favorites_species = models.ManyToManyField(Species, verbose_name='Especies favoritas', null=True, blank=True)
+    favorites_species = models.ManyToManyField(Species, verbose_name='Especies favoritas', blank=True)
 
     class Meta:
         verbose_name = 'Usuario de la aplicación'
