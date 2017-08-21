@@ -12,10 +12,10 @@ class CommentsInline(admin.TabularInline):
 
 
 class SpeciesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'scientific_name')
+    list_display = ('id', 'name', 'scientific_name', 'fk_category')
     list_display_links = ('id', 'name', 'scientific_name')
     search_fields = ('name', 'scientific_name')
-    list_filter = ('fk_category', 'fk_category')
+    list_filter = ('fk_category', )
     inlines = (CommentsInline, )
 
 
