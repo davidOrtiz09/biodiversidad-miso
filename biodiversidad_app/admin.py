@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from biodiversidad_app.models import Species, Comment, AppUser
+from biodiversidad_app.models import Species, Comment, AppUser, Category
 
 
 class CommentsInline(admin.TabularInline):
@@ -31,6 +31,11 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('id',)
     list_filter = ('id', )
 
+class CategoriesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    list_display_links = ('id', 'name')
+    search_fields = ('name',)
+
 admin.site.site_title = 'Biodiversidad G2'
 admin.site.site_header = 'Biodiversidad G2'
 admin.site.index_title = 'Procesos ágiles de desarrollo: Grupo 2'
@@ -38,3 +43,4 @@ admin.site.index_title = 'Procesos ágiles de desarrollo: Grupo 2'
 admin.site.register(Species, SpeciesAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(AppUser, UserAdmin)
+admin.site.register(Category, CategoriesAdmin)
