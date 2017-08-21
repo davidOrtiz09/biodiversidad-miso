@@ -4,9 +4,11 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User
 
+
 @python_2_unicode_compatible
 class Category(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Categoría', null=False, blank=False)
+    name = models.CharField(max_length=150, unique=True, verbose_name='Categoría', null=False, blank=False)
+
     class Meta:
         verbose_name = 'Categoría'
         verbose_name_plural = 'Categorías'
@@ -14,9 +16,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 @python_2_unicode_compatible
 class Species(models.Model):
-    fk_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría', null=True, blank=True) # Campo propuesto (podría cambiar)
+    fk_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría', null=False, blank=False)
     name = models.CharField(max_length=150, verbose_name='Nombre', unique=True, null=False, blank=False)
     scientific_name = models.CharField(max_length=150, verbose_name='Nombre científico', unique=True, null=False, blank=False)
     taxonomic_classification = models.CharField(max_length=150, verbose_name='Clasificación taxonómica', null=False, blank=False)
@@ -49,7 +52,7 @@ class Comment(models.Model):
 
 @python_2_unicode_compatible
 class AppUser(models.Model):
-    fk_django_user = models.ForeignKey(User, verbose_name='Usuario del sistema', null=False, blank=False)
+    fk_django_user = models.OneToOneField(User, verbose_name='Usuario del sistema', null=False, blank=False)
     picture = models.ImageField(upload_to='user-pictures', verbose_name='Foto', null=False, blank=False)
     city = models.CharField(max_length=100, verbose_name='Ciudad', null=False, blank=False)
     country = models.CharField(max_length=100, verbose_name='Pais', null=False, blank=False)
