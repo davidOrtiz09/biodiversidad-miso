@@ -4,7 +4,6 @@ import dj_database_url
 
 # Please use this dict when deploying to heroku
 DATABASE_DICT = dj_database_url.config(default=os.environ.get('DATABASE_URL', ''))
-DATABASE_DICT['ENGINE'] = 'django.db.backends.postgresql'
 
 # Please use this dict for locale tests
 '''
