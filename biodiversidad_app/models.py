@@ -4,10 +4,18 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
+class Category(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Categoría', null=False, blank=False)
+    class Meta:
+        verbose_name = 'Categoría'
+        verbose_name_plural = 'Categorías'
+
+    def __str__(self):
+        return self.name
 
 class Species(models.Model):
-    fk_category = models.CharField(max_length=150, blank=False)  # TODO: Crear la fx cuando las categorias sean creadas
-    #fk_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría', null=True, blank=True) # Campo propuesto (podría cambiar)
+    #fk_category = models.CharField(max_length=150, blank=False)  # TODO: Crear la fx cuando las categorias sean creadas
+    fk_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría', null=True, blank=True) # Campo propuesto (podría cambiar)
     name = models.CharField(max_length=150, verbose_name='Nombre', null=False, blank=False)
     picture = models.ImageField(upload_to='species-images', verbose_name='Imagen', null=False, blank=False)
     short_description = models.TextField(max_length=150, verbose_name='Descripción corta', null=False, blank=False)
@@ -61,11 +69,4 @@ class FavoriteSpecies(models.Model):
     def __str__(self):
         return self.name
 
-class Category(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Categoría', null=False, blank=False)
-    class Meta:
-        verbose_name = 'Categoría'
-        verbose_name_plural = 'Categorías'
 
-    def __str__(self):
-        return self.name
