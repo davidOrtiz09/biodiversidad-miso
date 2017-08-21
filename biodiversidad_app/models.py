@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User
 
 
+@python_2_unicode_compatible
 class Species(models.Model):
-    fk_category = models.CharField(max_length=150, blank=False)  # TODO: Crear la fx cuando las categorias sean creadas
-    #fk_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría', null=True, blank=True) # Campo propuesto (podría cambiar)
-    name = models.CharField(max_length=150, verbose_name='Nombre', null=False, blank=False)
+    # fk_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría', null=True, blank=True) # Campo propuesto (podría cambiar)
+    name = models.CharField(max_length=150, verbose_name='Nombre', unique=True, null=False, blank=False)
+    scientific_name = models.CharField(max_length=150, verbose_name='Nombre científico', unique=True, null=False, blank=False)
+    taxonomic_classification = models.CharField(max_length=150, verbose_name='Clasificación taxonómica', null=False, blank=False)
     picture = models.ImageField(upload_to='species-images', verbose_name='Imagen', null=False, blank=False)
     short_description = models.TextField(max_length=150, verbose_name='Descripción corta', null=False, blank=False)
     long_description = models.TextField(max_length=300, verbose_name='Descripción larga', null=False, blank=False)
-    scientific_name = models.CharField(max_length=150, verbose_name='Nombre científico', null=False, blank=False)
-    taxonomic_classification = models.CharField(max_length=150, verbose_name='Clasificación taxonómica', null=False, blank=False)
 
     class Meta:
         verbose_name = 'Especie'
@@ -23,6 +23,7 @@ class Species(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class Comment(models.Model):
     fk_species = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name='Especie', null=False, blank=False)
     email = models.EmailField(max_length=150, verbose_name='Email', null=False, blank=False)
@@ -36,33 +37,41 @@ class Comment(models.Model):
     def __str__(self):
         return 'Comentario de {0} sobre la especie {1}'.format(self.email, self.fk_species.name)
 
+
+@python_2_unicode_compatible
 class AppUser(models.Model):
-    fk_DjangoUser = models.ForeignKey(User, null=False) # Esta campo se habilitará cuando se realice el login del app
-    city = models.TextField(max_length=100, verbose_name='Ciudad',null=False, blank=False)
-    interest = models.TextField(max_length=1000, verbose_name='Interes', null=False, blank=False)
-    picture = models.ImageField(upload_to='species-images', verbose_name='Foto', null=False, blank=False)
-    country = models.TextField(max_length=100, verbose_name='Pais', null=False, blank=False)
+    fk_django_user = models.ForeignKey(User, verbose_name='Usuario del sistema', null=False, blank=False)
+    picture = models.ImageField(upload_to='user-pictures', verbose_name='Foto', null=False, blank=False)
+    city = models.CharField(max_length=100, verbose_name='Ciudad', null=False, blank=False)
+    country = models.CharField(max_length=100, verbose_name='Pais', null=False, blank=False)
+    interest = models.TextField(max_length=1000, verbose_name='Interés', null=True, blank=True)
+
+    favorites_species = models.ManyToManyField(Species, verbose_name='Especies favoritas', null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Usuario'
-        verbose_name_plural = 'Usuarios'
+        verbose_name = 'Usuario de la aplicación'
+        verbose_name_plural = 'Usuarios de la aplicación'
+
+    @property
+    def first_name(self):
+        return self.fk_django_user.first_name
+
+    @property
+    def last_name(self):
+        return self.fk_django_user.last_name
+
+    @property
+    def username(self):
+        return self.fk_django_user.username
 
     def __str__(self):
-        return self.fk_DjangoUser.first_name
+        return '{0} {1}'.format(self.first_name, self.last_name)
 
-class FavoriteSpecies(models.Model):
-    fk_appuser_id = models.ForeignKey(AppUser, on_delete=models.CASCADE, verbose_name='IdUsuario', null=False, blank=False)
-    fk_species_id = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name='IdEspecie', null=False, blank=False)
 
-    class Meta:
-        verbose_name = 'Favorito'
-        verbose_name_plural = 'Favoritos'
-
-    def __str__(self):
-        return self.name
-
+@python_2_unicode_compatible
 class Category(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Categoría', null=False, blank=False)
+    name = models.CharField(max_length=150, verbose_name='Nombre', unique=True, null=False, blank=False)
+
     class Meta:
         verbose_name = 'Categoría'
         verbose_name_plural = 'Categorías'

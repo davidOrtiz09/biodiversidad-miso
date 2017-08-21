@@ -15,6 +15,7 @@ class SpeciesAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'scientific_name')
     list_display_links = ('id', 'name', 'scientific_name')
     search_fields = ('name', 'scientific_name')
+    # list_filter = ('fk_category', )
     inlines = (CommentsInline, )
 
 
@@ -25,13 +26,15 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ('date_created', )
     readonly_fields = ('date_created', )
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('id','fk_DjangoUser','city','interest','country')
-    list_display_links = ('id', )
-    search_fields = ('id',)
-    list_filter = ('id', )
 
-class CategoriesAdmin(admin.ModelAdmin):
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'username', 'first_name', 'last_name', 'city', 'country')
+    list_display_links = ('id', 'username')
+    list_filter = ('city', 'country')
+    filter_horizontal = ('favorites_species', )
+
+
+class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
     search_fields = ('name',)
@@ -43,4 +46,4 @@ admin.site.index_title = 'Procesos ágiles de desarrollo: Grupo 2'
 admin.site.register(Species, SpeciesAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(AppUser, UserAdmin)
-admin.site.register(Category, CategoriesAdmin)
+admin.site.register(Category, CategoryAdmin)
