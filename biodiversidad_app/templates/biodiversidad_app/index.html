@@ -1,4 +1,4 @@
-{% extends 'biodeversidad_app/_common/_base.html' %}
+{% extends 'biodiversidad_app/_common/_base.html' %}
 {% block main %}
     <section>
         <div class="container-fluid">
@@ -8,12 +8,12 @@
                 </div>
                 {% for species in species_list %}
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                   {% include 'biodeversidad_app/_elements/_species-preview.html' %}
+                        {% include 'biodiversidad_app/_elements/_species-preview.html' %}
                     </div>
                 {% endfor %}
                 {% comment %}
                 <div class="col-xs-12">
-                    {% include 'biodeversidad_app/_common/_pagination.html' %}
+                    {% include 'biodiversidad_app/_common/_pagination.html' %}
                 </div>
                 {% endcomment %}
             </div>

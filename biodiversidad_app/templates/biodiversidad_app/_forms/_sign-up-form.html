@@ -1,0 +1,30 @@
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="first_name">Nombres:</label>
+        <input name="first_name" class="form-control" id="first_name" required>
+    </div>
+    <div class="form-group">
+        <label for="last_name">Apellidos:</label>
+        <input name="last_name" class="form-control" id="last_name" required>
+    </div>
+    <div class="form-group">
+        <label for="country">País:</label>
+        <input name="country" class="form-control" id="country" required>
+    </div>
+    <div class="form-group">
+        <label for="city">Ciudad:</label>
+        <input name="city" class="form-control" id="city" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Correo electrónico:</label>
+        <input name="email" type="email" class="form-control" id="email" required>
+    </div>
+    <div class="form-group">
+        <label for="interests">Intereses:</label>
+        <textarea name="interests" class="form-control" rows="6" id="interests" required></textarea>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary">Registrarse</button>
+    </div>
+</form>
