@@ -10,3 +10,6 @@ class Index(View):
         species_list = Species.objects.all()
         context = {'species_list': species_list}
         return render(request, 'biodeversidad_app/index.html', context)
+
+
+

@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from django.contrib.auth import forms
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import ModelForm
+
 
 
 @python_2_unicode_compatible
@@ -80,3 +84,37 @@ class AppUser(models.Model):
         return '{0} {1}'.format(self.first_name, self.last_name)
 
 
+class UserForm(ModelForm):
+
+    username = forms.CharField(max_length=50)
+    first_name = forms.CharField(max_length=20)
+    last_name = forms.CharField(max_length=20)
+    email = forms.EmalField()
+    password = forms.CharField(widget=forms.PasswordInput())
+    password2 = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name','email','password','password2']
+
+    def clean_username(self):
+
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username):
+            raise forms.ValidationError('Nombre de usuario ya registrado. ')
+        return username
+
+    def clean_email(self):
+
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email):
+            raise forms.ValidationError('Yaexsiste un email igual registrado. ')
+        return email
+
+    def clean_password2(self):
+
+        password = self.cleaned_data['password']
+        password2 = self.cleaned_data['password2']
+        if password != password2:
+            raise forms.ValidationError('Las claves no coinciden. ')
+        return password2
