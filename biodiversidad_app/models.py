@@ -56,7 +56,7 @@ class AppUser(models.Model):
     picture = models.ImageField(upload_to='user-pictures', verbose_name='Foto', null=False, blank=False)
     city = models.CharField(max_length=100, verbose_name='Ciudad', null=False, blank=False)
     country = models.CharField(max_length=100, verbose_name='Pais', null=False, blank=False)
-    interest = models.TextField(max_length=1000, verbose_name='Interés', null=True, blank=True)
+    interest = models.TextField(max_length=1000, verbose_name='Interés', null=False, blank=False)
 
     favorites_species = models.ManyToManyField(Species, verbose_name='Especies favoritas', blank=True)
 
