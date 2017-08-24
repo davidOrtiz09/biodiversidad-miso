@@ -9,4 +9,4 @@ class Index(View):
     def get(self, request):
         species_list = Species.objects.all()
         context = {'species_list': species_list}
-        return render(request, 'biodeversidad_app/index.html', context)
+        return render(request, 'biodiversidad_app/index.html', context)
