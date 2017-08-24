@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
-from django.contrib.auth import forms
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User
-from django.forms import ModelForm
-
 
 
 @python_2_unicode_compatible
@@ -60,7 +56,7 @@ class AppUser(models.Model):
     picture = models.ImageField(upload_to='user-pictures', verbose_name='Foto', null=False, blank=False)
     city = models.CharField(max_length=100, verbose_name='Ciudad', null=False, blank=False)
     country = models.CharField(max_length=100, verbose_name='Pais', null=False, blank=False)
-    interest = models.TextField(max_length=1000, verbose_name='Interés', null=False, blank=False)
+    interest = models.TextField(max_length=1000, verbose_name='Interés', null=True, blank=True)
 
     favorites_species = models.ManyToManyField(Species, verbose_name='Especies favoritas', blank=True)
 
@@ -82,3 +78,5 @@ class AppUser(models.Model):
 
     def __str__(self):
         return '{0} {1}'.format(self.first_name, self.last_name)
+
+
