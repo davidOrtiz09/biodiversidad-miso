@@ -1,0 +1,40 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CCS and Javascript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingreso</title>
+</head>
+<body>
+{% block content %}
+    <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="page-header"><h2>Login</h2></div>
+        {% if mensaje %}
+            <div class="alert alert-danger">
+            {{ mensaje }}
+            </div>
+        {% endif %}
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="form group">
+            <label class="control-label" for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" value="{{ username }}">
+        </div>
+        <div class="form group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a href="{% url 'biodiversidad:index' %}" class="btn btn-primary">Cancelar</a>
+    </form>>
+    </div>
+    </div>
+{% endblock %}
+</body>
+</html>
