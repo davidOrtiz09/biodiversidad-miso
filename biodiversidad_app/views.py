@@ -32,3 +32,11 @@ def login_view(request):
             mensaje = 'Nombre de usuario o clave invalido'
 
     return render(request, 'biodiversidad_app/_elements/_log-in.html', {'mensaje': mensaje})
+
+def specie_view(request, id = None):
+    try:
+        specie = Species.objects.get(id = id)
+        context = {'specie': specie}
+        return render(request, 'biodiversidad_app/verEspecie.html', context)
+    except:
+        return redirect(reverse('biodiversidad:index'))
