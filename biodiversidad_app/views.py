@@ -4,12 +4,10 @@ from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.shortcuts import render, redirect
-from django.core.urlresolvers import reverse
-from .models import Species
-from .models import UserForm
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from biodiversidad_app.models import Species
+from biodiversidad_app.forms import UserForm
 
 
 class Index(View):
@@ -20,7 +18,6 @@ class Index(View):
 
 
 def login_view(request):
-
     if request.user.is_authenticated():
         return redirect(reverse('biodiversidad:index'))
 
@@ -37,7 +34,8 @@ def login_view(request):
 
     return render(request, 'biodiversidad_app/_elements/_log-in.html', {'mensaje': mensaje})
 
-def specie_view(request, id = None):
+
+def specie_view(request, id=None):
     try:
         specie = Species.objects.get(id = id)
         context = {'specie': specie}
@@ -62,10 +60,10 @@ def add_user_view(request):
             user_model.last_name = last_name
             user_model.email = email
             user_model.save()
-            return HttpResponseRedirect(reverse('biodiversidad:index'))
+            return redirect(reverse('biodiversidad:index'))
     else:
         form = UserForm()
     context = {
-        'form':form
+        'form': form
     }
     return render(request, 'biodiversidad_app/_forms/user_registration.html', context)
