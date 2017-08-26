@@ -1,0 +1,19 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="text-center">{{ specie.name }}</h3>
+        <h4 class="text-center"><i>({{ specie.scientific_name }})</i></h4>
+    </div>
+    <div class="panel-body">
+        <img src="{{ specie.picture.url }}" class="img-responsive center-block" alt="Imagen de la especie">
+        <h4 class="text-center"><b>Categoria:</b> {{ specie.fk_category.name }}</h4>
+        <div class="species-detail-description">
+            <b>Calsificaci&oacute;n taxon&oacute;mica:</b><br>{{ specie.taxonomic_classification }}
+            <br><br>
+            <b>Descripci&oacute;n corta:</b><br>{{ specie.short_description }}
+            <br><br>
+            <b>Descripci&oacute;n larga:</b><br>{{ specie.long_description }}
+        </div>
+
+    </div>
+</div>
