@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'biodiversidad_app.apps.BiodiversidadAppConfig',
-    'bootstrap3'
+    'bootstrap3',
+    'biodiversidad_app.apps.BiodiversidadAppConfig'
+
 ]
 
 MIDDLEWARE = [
