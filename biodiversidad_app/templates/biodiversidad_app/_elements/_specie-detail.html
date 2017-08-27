@@ -1,18 +1,21 @@
 
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="text-center">{{ specie.name }}</h3>
-        <h4 class="text-center"><i>({{ specie.scientific_name }})</i></h4>
+    <div class="panel-heading" style ="height: 40px;">
+        <button type="button" class="close closeDetalle" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="panel-body">
-        <img src="{{ specie.picture.url }}" class="img-responsive center-block" alt="Imagen de la especie">
-        <h4 class="text-center"><b>Categoria:</b> {{ specie.fk_category.name }}</h4>
-        <div class="species-detail-description">
-            <b>Calsificaci&oacute;n taxon&oacute;mica:</b><br>{{ specie.taxonomic_classification }}
-            <br><br>
-            <b>Descripci&oacute;n corta:</b><br>{{ specie.short_description }}
-            <br><br>
-            <b>Descripci&oacute;n larga:</b><br>{{ specie.long_description }}
+        <img src="{{ specie.picture.url }}" class="img-responsive center-block col-lg-6 col-sm-12 col-md-6" style="max-height: 250px" alt="Imagen de la especie">
+        <ul class="list-group col-lg-6 col-sm-12 col-md-6">
+          <li class="list-group-item text-center"><strong>Nombre de la especie:</strong> <br>{{ specie.name }}</li>
+          <li class="list-group-item text-center"><strong>Clasificación Taxonómica:</strong> <br>{{ specie.taxonomic_classification }}</li>
+          <li class="list-group-item text-center"><strong>Nombre Científico:</strong> <br>{{ specie.scientific_name }}</li>
+          <li class="list-group-item text-center"><strong>Categoría:</strong> <br>{{ specie.fk_category.name }}</li>
+        </ul>
+
+        <div class="species-detail-description col-lg-12 col-sm-12 col-md-12">
+            <p><strong>Descripción:</strong> <br>{{ specie.long_description }}</p>
         </div>
 
     </div>

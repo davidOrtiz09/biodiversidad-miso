@@ -1,6 +1,45 @@
 .species-preview-description{
-    height: 80px;
+    margin-bottom: 10px;
 }
 .species-detail-description{
     height: 150px;
+}
+
+.botonVerDetalle{
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #008CBA;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.botonVerDetalle span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.botonVerDetalle span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.botonVerDetalle:hover span {
+  padding-right: 25px;
+}
+
+.botonVerDetalle:hover span:after {
+  opacity: 1;
+  right: 0;
 }

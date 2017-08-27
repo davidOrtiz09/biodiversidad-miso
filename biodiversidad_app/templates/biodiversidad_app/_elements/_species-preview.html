@@ -4,10 +4,13 @@
         <h3 class="text-center">{{ species.fk_category.name }}</h3>
     </div>
     <div class="panel-body">
-        <img src="{{ species.picture.url }}" class="img-responsive center-block" alt="Imagen de la especie">
+        <div style="height: 305px;">
+            <img src="{{ species.picture.url }}" class="img-responsive center-block" style="max-height: 300px;" alt="Imagen de la especie">
+        </div>
         <h4 class="text-center">{{ species.name }}</h4>
         <div class="species-preview-description">
              {{ species.short_description }}
         </div>
+        <button type="button" class="botonVerDetalle verDetalle" name="{{species.id}}" style="float: right; vertical-align:middle"><span>Ver Detalle</span></button>
     </div>
 </div>

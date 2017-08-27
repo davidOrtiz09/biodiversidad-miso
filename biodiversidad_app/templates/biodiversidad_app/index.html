@@ -9,7 +9,6 @@
                 {% for species in species_list %}
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         {% include 'biodiversidad_app/_elements/_species-preview.html' %}
-                        <a href="/especie/{{species.id}}/" class="btn btn-primary">Ver detalle</a>
                     </div>
                 {% endfor %}
                 {% comment %}
@@ -17,6 +16,11 @@
                     {% include 'biodiversidad_app/_common/_pagination.html' %}
                 </div>
                 {% endcomment %}
+
+              <!-- Modal -->
+              <div class="modal fade" id="detalleEspecie" role="dialog"></div>
+
+
             </div>
         </div>
     </section>
