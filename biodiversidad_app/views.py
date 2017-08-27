@@ -24,10 +24,10 @@ class Login(View):
         if request.user.is_authenticated:
             return redirect(reverse('biodiversidad:index'))
 
-        username = request.POST.get('username', '')
+        username = request.POST.get('email', '')
         password = request.POST.get('password', '')
         user = authenticate(username=username, password=password)
-        if user is not None:
+        if user:
             login(request, user)
         else:
             messages.add_message(request, messages.WARNING, 'Por favor verifique el nombre de usuario y la contraseña')
