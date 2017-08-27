@@ -8,14 +8,14 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from biodiversidad_app.models import Species
 from biodiversidad_app.forms import UserForm
+from django.contrib import messages
 
 
 class Index(View):
     def get(self, request):
         species_list = Species.objects.all()
         form = UserForm()
-        context = {'species_list': species_list,
-                   'form':form}
+        context = {'species_list': species_list, 'form': form}
         return render(request, 'biodiversidad_app/index.html',  context)
 
 
@@ -29,10 +29,9 @@ class Login(View):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect(reverse('biodiversidad:index'))
         else:
-            mensaje = 'Nombre de usuario o clave invalido'
-            return render(request, 'biodiversidad_app/_elements/_log-in.html', {'mensaje': mensaje})
+            messages.add_message(request, messages.WARNING, 'Por favor verifique el nombre de usuario y la contraseña')
+        return redirect(reverse('biodiversidad:index'))
 
 
 class Logout(View):
@@ -40,24 +39,6 @@ class Logout(View):
         logout(request)
         return redirect(reverse('biodiversidad:index'))
 
-'''
-def login_view(request):
-    if request.user.is_authenticated():
-        return redirect(reverse('biodiversidad:index'))
-
-    mensaje = ''
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect(reverse('biodiversidad:index'))
-        else:
-            mensaje = 'Nombre de usuario o clave invalido'
-
-    return render(request, 'biodiversidad_app/_elements/_log-in.html', {'mensaje': mensaje})
-'''
 
 def specie_view(request, id=None):
     try:

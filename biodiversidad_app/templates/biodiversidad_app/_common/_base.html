@@ -19,6 +19,15 @@
 </header>
 
 <main>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{{ message.tags }} alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     {% block main %}
 
     {% endblock %}

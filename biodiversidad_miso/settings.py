@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 from biodiversidad_miso.local_settings import DATABASE_DICT
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -128,3 +129,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert alert-info',
+    messages.INFO: 'alert alert-info',
+    messages.SUCCESS: 'alert alert-success',
+    messages.WARNING: 'alert alert-warning',
+    messages.ERROR: 'alert alert-danger',
+}
