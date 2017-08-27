@@ -62,21 +62,17 @@ def add_user_view(request):
             email = cleaned_data.get('email')
             city = cleaned_data.get('city')
             country = cleaned_data.get('country')
-            #picture = cleaned_data.get('pictures')
+            picture = cleaned_data.get('pictures')
+            interests = "dkdkdkkdkd"
 
             user_model = User.objects.create_user(username=username, password=password)
             user_model.first_name = first_name
             user_model.last_name = last_name
             user_model.email = email
             user_model.save()
-            user = User.objects.get(username)
-            AppUser.fk_django_user =user
-            AppUser.city = city
-            AppUser.country = country
-            #AppUser.picture = picture
-            AppUser.save()
 
-
+            app_user_model = AppUser(fk_django_user=user_model, picture=picture, city=city, country=country, interest=interests)
+            app_user_model.save()
             return HttpResponseRedirect(reverse('biodiversidad:index'))
     else:
         form = UserForm()
