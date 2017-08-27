@@ -13,8 +13,10 @@ from biodiversidad_app.forms import UserForm
 class Index(View):
     def get(self, request):
         species_list = Species.objects.all()
-        context = {'species_list': species_list}
-        return render(request, 'biodiversidad_app/index.html', context)
+        form = UserForm()
+        context = {'species_list': species_list,
+                   'form':form}
+        return render(request, 'biodiversidad_app/index.html',  context)
 
 
 class Login(View):
