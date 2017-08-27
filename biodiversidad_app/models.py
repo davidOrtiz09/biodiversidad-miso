@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import forms
+from django.forms import ModelForm
 
 
 @python_2_unicode_compatible
@@ -53,7 +55,7 @@ class Comment(models.Model):
 @python_2_unicode_compatible
 class AppUser(models.Model):
     fk_django_user = models.OneToOneField(User, verbose_name='Usuario del sistema', null=False, blank=False)
-    picture = models.ImageField(upload_to='user-pictures', verbose_name='Foto', null=False, blank=False)
+    picture = models.ImageField(upload_to='user-pictures', verbose_name='Foto', null=True, blank=False)
     city = models.CharField(max_length=100, verbose_name='Ciudad', null=False, blank=False)
     country = models.CharField(max_length=100, verbose_name='Pais', null=False, blank=False)
     interest = models.TextField(max_length=1000, verbose_name='Interés', null=True, blank=True)
@@ -78,3 +80,43 @@ class AppUser(models.Model):
 
     def __str__(self):
         return '{0} {1}'.format(self.first_name, self.last_name)
+
+
+class UserForm(ModelForm):
+
+    username = forms.CharField(max_length=50)
+    first_name = forms.CharField(max_length=20)
+    last_name = forms.CharField(max_length=20)
+    email = forms.EmailField()
+    city = forms.CharField(max_length=50)
+    country = forms.CharField(max_length=50)
+    #picture = forms.ImageField()
+    interest = forms.CharField(max_length=50)
+    password = forms.CharField(widget=forms.PasswordInput())
+    password2 = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email','city','country','interest', 'password', 'password2']
+
+    def clean_username(self):
+
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username):
+            raise forms.ValidationError('Nombre de usuario ya registrado. ')
+        return username
+
+    def clean_email(self):
+
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email):
+            raise forms.ValidationError('Ya exsiste un email igual registrado. ')
+        return email
+
+    def clean_password2(self):
+
+        password = self.cleaned_data['password']
+        password2 = self.cleaned_data['password2']
+        if password != password2:
+            raise forms.ValidationError('Las claves no coinciden.')
+        return password2

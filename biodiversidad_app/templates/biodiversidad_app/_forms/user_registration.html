@@ -13,8 +13,6 @@
 <body>
 {% block content %}
     <div class="form-group">
-
-
             <form method="post" action="">
                     {% csrf_token %}
                     {% bootstrap_form form %}
@@ -23,7 +21,6 @@
                     <a href="{% url 'biodiversidad:index' %}" class="btn btn-primary">Cancelar</a>
                     {% endbuttons %}
             </form>
-
     </div>
 {% endblock %}
 </body>

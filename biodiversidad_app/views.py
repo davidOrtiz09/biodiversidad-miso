@@ -2,12 +2,13 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from biodiversidad_app.models import Species
-from biodiversidad_app.forms import UserForm
+from biodiversidad_app.models import Species, UserForm
+from biodiversidad_app.models import AppUser
 from django.contrib import messages
 
 
@@ -51,7 +52,7 @@ def specie_view(request, id=None):
 
 def add_user_view(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             cleaned_data = form.cleaned_data
             username = cleaned_data.get('username')
@@ -59,13 +60,24 @@ def add_user_view(request):
             last_name = cleaned_data.get('last_name')
             password = cleaned_data.get('password')
             email = cleaned_data.get('email')
+            city = cleaned_data.get('city')
+            country = cleaned_data.get('country')
+            #picture = cleaned_data.get('pictures')
 
             user_model = User.objects.create_user(username=username, password=password)
             user_model.first_name = first_name
             user_model.last_name = last_name
             user_model.email = email
             user_model.save()
-            return redirect(reverse('biodiversidad:index'))
+            user = User.objects.get(username)
+            AppUser.fk_django_user =user
+            AppUser.city = city
+            AppUser.country = country
+            #AppUser.picture = picture
+            AppUser.save()
+
+
+            return HttpResponseRedirect(reverse('biodiversidad:index'))
     else:
         form = UserForm()
     context = {
