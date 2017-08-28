@@ -1,0 +1,49 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Biodiversidad G2</title>
+
+    <link rel="stylesheet" href="{% static 'biodiversidad_app/font-awesome/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'biodiversidad_app/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'biodiversidad_app/css/styles.css' %}">
+
+    {% include 'biodiversidad_app/_common/navigation.html' %}
+</head>
+<body>
+{% block content %}
+    <div class="row">
+        <div class="col-sm-4" ></div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <h2>Actualiza tu Datos {{ user.username }}</h2>
+            </div>
+
+            <form method="post" action="">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                    <input type="submit" value="Actualizar" class="btn btn-primary">
+                    <a href="{% url 'biodiversidad:updateUser' %}" class="btn btn-primary">Cancelar</a>
+                    {% endbuttons %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+<script src="{% static 'biodiversidad_app/scripts/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'biodiversidad_app/bootstrap/scripts/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'biodiversidad_app/scripts/scripts.js' %}" type="text/javascript"></script>
+
+</body>
+</html>
+

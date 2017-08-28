@@ -120,3 +120,25 @@ class UserForm(ModelForm):
         if password != password2:
             raise forms.ValidationError('Las claves no coinciden.')
         return password2
+
+
+class UserFormUpdate(ModelForm):
+    first_name = forms.CharField(max_length=20, required=False)
+    last_name = forms.CharField(max_length=20, required=False)
+    email = forms.EmailField(required=False)
+    city = forms.CharField(max_length=50)
+    country = forms.CharField(max_length=50)
+    interest = forms.CharField(max_length=50)
+    password = forms.CharField(widget=forms.PasswordInput(), required=False)
+    password2 = forms.CharField(widget=forms.PasswordInput(), required=False)
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'city', 'country', 'interest', 'password', 'password2']
+
+    def clean_password2(self):
+        password = self.cleaned_data['password']
+        password2 = self.cleaned_data['password2']
+        if password != password2:
+            raise forms.ValidationError('Las claves no coinciden.')
+        return password2
