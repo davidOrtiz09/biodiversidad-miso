@@ -7,7 +7,7 @@ from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from biodiversidad_app.models import Species, UserForm
+from biodiversidad_app.models import Species, UserForm,UserFormUpdate
 from biodiversidad_app.models import AppUser
 from django.contrib import messages
 
@@ -80,3 +80,44 @@ def add_user_view(request):
         'form': form
     }
     return render(request, 'biodiversidad_app/_forms/user_registration.html', context)
+
+
+
+def update_user_view(request):
+    if request.method == 'POST':
+        form = UserFormUpdate(request.POST)
+
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            first_name = cleaned_data.get('first_name')
+            last_name = cleaned_data.get('last_name')
+            password = cleaned_data.get('password')
+            email = cleaned_data.get('email')
+            city = cleaned_data.get('city')
+            country = cleaned_data.get('country')
+            interest = cleaned_data.get('interest')
+
+            user_model = User.objects.get(username=request.user.username, password=request.user.password)
+            user_model.first_name = first_name
+            if password !='':
+                user_model.password=password
+            user_model.last_name = last_name
+            user_model.email = email
+            user_model.city = city
+            user_model.country=country
+            user_model.interest = interest
+            user_model.save()
+            return redirect(reverse('biodiversidad:index'))
+    else:
+        form = UserFormUpdate()
+        form.fields["first_name"].initial = request.user.first_name
+        form.fields["last_name"].initial = request.user.last_name
+        form.fields["email"].initial = request.user.email
+        form.fields["city"].initial = request.user.first_name
+        form.fields["country"].initial = request.user.last_name
+        form.fields["interest"].initial = request.user.email
+
+    context = {
+        'form': form
+    }
+    return render(request, 'biodiversidad_app/_forms/user.html', context)
