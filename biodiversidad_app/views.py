@@ -100,8 +100,7 @@ def update_user_view(request):
             user_model = User.objects.get(username=request.user.username, password=request.user.password)
             user_model.first_name = first_name
             if password != '':
-                user_model.password=password
-                print "CAmbi de usuario"
+                user_model.password= password
             user_model.last_name = last_name
             user_model.email = email
             user_model.save()
