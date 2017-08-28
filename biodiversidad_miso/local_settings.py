@@ -7,6 +7,7 @@ import dj_database_url
 DATABASE_DICT = dj_database_url.config(default=os.environ.get('DATABASE_URL', ''))
 
 # Please use this dict for locale tests
+
 '''
 DATABASE_DICT = {
     'ENGINE': 'django.db.backends.postgresql',
@@ -17,3 +18,5 @@ DATABASE_DICT = {
     'PORT': '5432',
 }
 '''
+
+

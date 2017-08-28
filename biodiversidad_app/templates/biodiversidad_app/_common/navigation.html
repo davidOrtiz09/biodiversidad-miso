@@ -13,19 +13,33 @@
                 <li class="active"><a href="{% url 'biodiversidad:index' %}">Catalogo</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#sign-up-modal">
-                        <i class="fa fa-user"></i> Registrarse
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-sign-in"></i> Ingresar
-                    </a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'biodiversidad:updateUser' %}" >
+                            <i class="fa fa-user"></i> {{ user.username }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'biodiversidad:logout' %}">
+                            <i class="fa fa-sign-out"></i> Cerrar sesión
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#sign-up-modal">
+                            <i class="fa fa-user"></i> Registrarse
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#login-modal">
+                            <i class="fa fa-sign-in"></i> Ingresar
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
 {% include 'biodiversidad_app/_elements/_modal-sign-up.html' %}
+{% include 'biodiversidad_app/_elements/_modal-login.html' %}

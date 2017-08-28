@@ -1,0 +1,19 @@
+{% extends 'biodiversidad_app/_common/_base.html' %}
+{% block main %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-offset-3 col-xs-6">
+                    {% include 'biodiversidad_app/_elements/_specie-detail.html' %}
+                </div>
+
+                {% comment %}
+                <div class="col-xs-12">
+                    {% include 'biodiversidad_app/_common/_pagination.html' %}
+                </div>
+                {% endcomment %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
