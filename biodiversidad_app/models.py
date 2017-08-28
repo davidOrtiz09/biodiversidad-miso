@@ -84,20 +84,20 @@ class AppUser(models.Model):
 
 class UserForm(ModelForm):
 
-    username = forms.CharField(max_length=50)
+    #username = forms.CharField(max_length=50)
     first_name = forms.CharField(max_length=20)
     last_name = forms.CharField(max_length=20)
     email = forms.EmailField()
     city = forms.CharField(max_length=50)
     country = forms.CharField(max_length=50)
     #picture = forms.ImageField()
-    interest = forms.CharField(max_length=50)
+    interests = forms.CharField(max_length=50)
     password = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email','city','country','interest', 'password', 'password2']
+        fields = ['first_name', 'last_name', 'email','city','country','interests', 'password', 'password2']
 
     def clean_username(self):
 

@@ -55,7 +55,7 @@ def add_user_view(request):
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             cleaned_data = form.cleaned_data
-            username = cleaned_data.get('username')
+            username = cleaned_data.get('email')
             first_name = cleaned_data.get('first_name')
             last_name = cleaned_data.get('last_name')
             password = cleaned_data.get('password')
@@ -63,7 +63,7 @@ def add_user_view(request):
             city = cleaned_data.get('city')
             country = cleaned_data.get('country')
             picture = cleaned_data.get('pictures')
-            interests = "dkdkdkkdkd"
+            interests = cleaned_data.get('interests')
 
             user_model = User.objects.create_user(username=username, password=password)
             user_model.first_name = first_name
