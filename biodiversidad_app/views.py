@@ -99,12 +99,12 @@ def update_user_view(request):
 
             user_model = User.objects.get(username=request.user.username, password=request.user.password)
             user_model.first_name = first_name
-            if password !='':
+            if password != '':
                 user_model.password=password
             user_model.last_name = last_name
             user_model.email = email
             user_model.city = city
-            user_model.country=country
+            user_model.country = country
             user_model.interest = interest
             user_model.save()
             return redirect(reverse('biodiversidad:index'))
@@ -113,9 +113,9 @@ def update_user_view(request):
         form.fields["first_name"].initial = request.user.first_name
         form.fields["last_name"].initial = request.user.last_name
         form.fields["email"].initial = request.user.email
-        form.fields["city"].initial = request.user.first_name
-        form.fields["country"].initial = request.user.last_name
-        form.fields["interest"].initial = request.user.email
+        form.fields["city"].initial = request.user.city
+        form.fields["country"].initial = request.user.country
+        form.fields["interest"].initial = request.user.interest
 
     context = {
         'form': form
