@@ -62,7 +62,7 @@ def add_user_view(request):
             email = cleaned_data.get('email')
             city = cleaned_data.get('city')
             country = cleaned_data.get('country')
-            picture = cleaned_data.get('pictures')
+            picture = cleaned_data.get('picture')
             interests = cleaned_data.get('interests')
 
             user_model = User.objects.create_user(username=username, password=password)

@@ -90,14 +90,14 @@ class UserForm(ModelForm):
     email = forms.EmailField()
     city = forms.CharField(max_length=50)
     country = forms.CharField(max_length=50)
-    #picture = forms.ImageField()
+    picture = forms.ImageField()
     interests = forms.CharField(max_length=50)
     password = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email','city','country','interests', 'password', 'password2']
+        fields = ['first_name', 'last_name', 'email','city','country','interests', 'password', 'password2','picture']
 
     def clean_username(self):
 
