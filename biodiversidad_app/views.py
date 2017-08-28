@@ -101,21 +101,26 @@ def update_user_view(request):
             user_model.first_name = first_name
             if password != '':
                 user_model.password=password
+                print "CAmbi de usuario"
             user_model.last_name = last_name
             user_model.email = email
-            user_model.city = city
-            user_model.country = country
-            user_model.interest = interest
             user_model.save()
+            app_user_model = AppUser.objects.get(fk_django_user=user_model)
+            app_user_model.city = city
+            app_user_model.country = country
+            app_user_model.interest = interest
+            app_user_model.save()
             return redirect(reverse('biodiversidad:index'))
     else:
         form = UserFormUpdate()
+        user_model = User.objects.get(username=request.user.username, password=request.user.password)
+        app_user_model = AppUser.objects.get(fk_django_user = user_model)
         form.fields["first_name"].initial = request.user.first_name
         form.fields["last_name"].initial = request.user.last_name
         form.fields["email"].initial = request.user.email
-        form.fields["city"].initial = request.user.city
-        form.fields["country"].initial = request.user.country
-        form.fields["interest"].initial = request.user.interest
+        form.fields["city"].initial = app_user_model.city
+        form.fields["country"].initial = app_user_model.country
+        form.fields["interest"].initial = app_user_model.interest
 
     context = {
         'form': form
