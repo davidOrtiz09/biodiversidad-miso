@@ -44,7 +44,8 @@ class Logout(View):
 def specie_view(request, id=None):
     try:
         specie = Species.objects.get(id = id)
-        context = {'specie': specie}
+        context = {'specie': specie,
+                   'form':UserForm()}
         return render(request, 'biodiversidad_app/verEspecie.html', context)
     except:
         return redirect(reverse('biodiversidad:index'))
