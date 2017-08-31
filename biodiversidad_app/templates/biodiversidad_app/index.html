@@ -6,6 +6,16 @@
                 <div class="col-xs-12">
                     <h1 class="text-center">Catálogo de especies de nuestra reserva</h1>
                 </div>
+                <div>
+                <input list="Categories" name="category" align="center">
+                    <datalist id="Categories">
+                        {% for category in category_list %}
+                        <option value="{{ category.name }}">
+                        {% endfor %}
+                    </datalist>
+                 <button type="button" class="btn btn-primary"><span>Buscar</span></button>
+                </div>
+            <br>
                 {% for species in species_list %}
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         {% include 'biodiversidad_app/_elements/_species-preview.html' %}

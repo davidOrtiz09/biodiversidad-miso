@@ -7,16 +7,17 @@ from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from biodiversidad_app.models import Species, UserForm,UserFormUpdate
+from biodiversidad_app.models import Species, UserForm, UserFormUpdate, Category
 from biodiversidad_app.models import AppUser
 from django.contrib import messages
 
 
 class Index(View):
     def get(self, request):
+        category_list = Category.objects.all()
         species_list = Species.objects.all()
         form = UserForm()
-        context = {'species_list': species_list, 'form': form}
+        context = {'species_list': species_list, 'category_list': category_list, 'form': form}
         return render(request, 'biodiversidad_app/index.html',  context)
 
 
