@@ -6,15 +6,21 @@
                 <div class="col-xs-12">
                     <h1 class="text-center">Catálogo de especies de nuestra reserva</h1>
                 </div>
-                <div>
-                <input list="Categories" name="category" align="center">
-                    <datalist id="Categories">
+                <form method="post" action="{% url 'biodiversidad:index' %}">
+                {% csrf_token %}
+                    <div align="center">
+                <h3>Categorias</h3>
+                    <select name="category" id="category">
+                        <option value="Todos">Todos</option>
                         {% for category in category_list %}
-                        <option value="{{ category.name }}">
+                            <option value="{{ category }}">{{ category.name }}</option>
                         {% endfor %}
-                    </datalist>
-                 <button type="button" class="btn btn-primary"><span>Buscar</span></button>
-                </div>
+                    </select>
+                    <input type="submit" value="Buscar" class="btn btn-primary">
+
+                     </div>
+                </form>
+
             <br>
                 {% for species in species_list %}
                     <div class="col-xs-12 col-sm-6 col-md-3">

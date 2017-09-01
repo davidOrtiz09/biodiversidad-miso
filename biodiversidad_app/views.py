@@ -4,21 +4,31 @@ from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from biodiversidad_app.models import Species, UserForm, UserFormUpdate, Category
 from biodiversidad_app.models import AppUser
 from django.contrib import messages
 
-
-class Index(View):
-    def get(self, request):
-        category_list = Category.objects.all()
-        species_list = Species.objects.all()
+def index(request):
+        if request.method == 'POST':
+            categorySelected = request.POST.get('category', '')
+            if categorySelected !='Todos':
+                category = Category.objects.filter(name=categorySelected)
+                species_list = Species.objects.filter(fk_category=category)
+                category_list = Category.objects.all()
+            else:
+                category_list = Category.objects.all()
+                species_list = Species.objects.all()
+        else:
+            category_list = Category.objects.all()
+            species_list = Species.objects.all()
         form = UserForm()
         context = {'species_list': species_list, 'category_list': category_list, 'form': form}
-        return render(request, 'biodiversidad_app/index.html',  context)
+        return render(request, 'biodiversidad_app/index.html', context)
+
+
 
 
 class Login(View):
