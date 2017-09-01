@@ -7,7 +7,7 @@ from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from biodiversidad_app.models import Species, UserForm, UserFormUpdate, Category
+from biodiversidad_app.models import Species, UserForm, UserFormUpdate, Category, Comment
 from biodiversidad_app.models import AppUser
 from django.contrib import messages
 
@@ -55,7 +55,9 @@ class Logout(View):
 def specie_view(request, id=None):
     try:
         specie = Species.objects.get(id = id)
+        comments = Comment.objects.filter(fk_species = specie.id)
         context = {'specie': specie,
+                   'comments': comments,
                    'form':UserForm()}
         return render(request, 'biodiversidad_app/verEspecie.html', context)
     except:

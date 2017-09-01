@@ -17,6 +17,23 @@
         <div class="species-detail-description col-lg-12 col-sm-12 col-md-12">
             <p><strong>Descripción:</strong> <br>{{ specie.long_description }}</p>
         </div>
+        <br>
+        <div class="col-lg-12 col-sm-12 col-md-12">
+        <h2>Comentarios</h2>
+        <ul>
+            {% for comment in comments %}
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                   <li>
+                       <p>
+                           {{ comment.comment }}<br>
+                           Por: {{ comment.email }}<br>
+                           Fecha:{{ comment.date_created }}<br>
+                       </p>
+                   </li>
+                </div>
+            {% endfor %}
+        </ul>
+        </div>
 
     </div>
 </div>
