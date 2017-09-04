@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^especie/(\d+)/$', views.specie_view, name='verEspecie'),
     url(r'^addUser/$', views.add_user_view, name='addUser'),
     url(r'^updateUser/$', views.update_user_view, name='updateUser'),
+    url(r'^addCommentary/(?P<especie_id>[0-9]+)$', views.add_commentary, name='addCommentary'),
 
 ]

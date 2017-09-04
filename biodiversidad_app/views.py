@@ -95,8 +95,6 @@ def add_user_view(request):
     }
     return render(request, 'biodiversidad_app/_forms/user_registration.html', context)
 
-
-
 def update_user_view(request):
     if request.method == 'POST':
         form = UserFormUpdate(request.POST)
@@ -139,3 +137,16 @@ def update_user_view(request):
         'form': form
     }
     return render(request, 'biodiversidad_app/_forms/user.html', context)
+
+
+def add_commentary(request,especie_id):
+    try:
+        if request.method == 'POST':
+            email = request.POST.get('email', '')
+            comentario = request.POST.get('comentario', '')
+            specie_model = Species.objects.get(id = especie_id)
+            commentary_model=Comment(fk_species=specie_model,email=email,comment=comentario)
+            commentary_model.save()
+            return redirect(reverse('biodiversidad:index'))
+    except:
+        return redirect(reverse('biodiversidad:index'))
