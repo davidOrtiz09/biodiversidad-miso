@@ -15,3 +15,5 @@ $('.closeDetalle').on('click', function(event){
     $("#detalleEspecie").modal('hide');
     $(".modal-backdrop").remove();
 });
+
+
