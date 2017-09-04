@@ -2,33 +2,33 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.views.generic import View
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
-from biodiversidad_app.models import Species, UserForm, UserFormUpdate, Category, Comment
-from biodiversidad_app.models import AppUser
 from django.contrib import messages
+from django.core.urlresolvers import reverse
+from biodiversidad_app.models import Species, Category, Comment
+from biodiversidad_app.models import AppUser
+from biodiversidad_app.forms import UserForm, UserFormUpdate
+
 
 def index(request):
-        if request.method == 'POST':
-            categorySelected = request.POST.get('category', '')
-            if categorySelected !='Todos':
-                category = Category.objects.filter(name=categorySelected)
-                species_list = Species.objects.filter(fk_category=category)
-                category_list = Category.objects.all()
-            else:
-                category_list = Category.objects.all()
-                species_list = Species.objects.all()
+    if request.method == 'POST':
+        categorySelected = request.POST.get('category', '')
+        if categorySelected !='Todos':
+            category = Category.objects.filter(name=categorySelected)
+            species_list = Species.objects.filter(fk_category=category)
+            category_list = Category.objects.all()
         else:
             category_list = Category.objects.all()
             species_list = Species.objects.all()
-        form = UserForm()
-        context = {'species_list': species_list, 'category_list': category_list, 'form': form}
-        return render(request, 'biodiversidad_app/index.html', context)
-
-
+    else:
+        category_list = Category.objects.all()
+        species_list = Species.objects.all()
+    form = UserForm()
+    context = {'species_list': species_list, 'category_list': category_list, 'form': form}
+    return render(request, 'biodiversidad_app/index.html', context)
 
 
 class Login(View):
@@ -52,15 +52,16 @@ class Logout(View):
         return redirect(reverse('biodiversidad:index'))
 
 
-def specie_view(request, id=None):
-    try:
-        specie = Species.objects.get(id = id)
-        comments = Comment.objects.filter(fk_species = specie.id)
-        context = {'specie': specie,
+def specie_view(request, species_id=None):
+    species = Species.objects.filter(id=species_id).first()
+    if species:
+        comments = Comment.objects.filter(fk_species=species.id)
+        context = {'specie': species,
                    'comments': comments,
                    'form':UserForm()}
         return render(request, 'biodiversidad_app/verEspecie.html', context)
-    except:
+    else:
+        messages.add_message(request, messages.WARNING, 'Lo sentimos, no encontramos la especie que estabas buscando')
         return redirect(reverse('biodiversidad:index'))
 
 
@@ -69,23 +70,25 @@ def add_user_view(request):
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             cleaned_data = form.cleaned_data
-            username = cleaned_data.get('email')
+            email = cleaned_data.get('email')
             first_name = cleaned_data.get('first_name')
             last_name = cleaned_data.get('last_name')
             password = cleaned_data.get('password')
-            email = cleaned_data.get('email')
             city = cleaned_data.get('city')
             country = cleaned_data.get('country')
             picture = cleaned_data.get('picture')
-            interests = cleaned_data.get('interests')
+            interest = cleaned_data.get('interest')
 
-            user_model = User.objects.create_user(username=username, password=password)
-            user_model.first_name = first_name
-            user_model.last_name = last_name
-            user_model.email = email
+            user_model = User.objects.create_user(
+                username=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name,
+                email=email
+            )
             user_model.save()
 
-            app_user_model = AppUser(fk_django_user=user_model, picture=picture, city=city, country=country, interest=interests)
+            app_user_model = AppUser(fk_django_user=user_model, picture=picture, city=city, country=country, interest=interest)
             app_user_model.save()
             return HttpResponseRedirect(reverse('biodiversidad:index'))
     else:
@@ -95,31 +98,39 @@ def add_user_view(request):
     }
     return render(request, 'biodiversidad_app/_forms/user_registration.html', context)
 
+
 def update_user_view(request):
     if request.method == 'POST':
-        form = UserFormUpdate(request.POST)
+        form = UserFormUpdate(request.POST, request.FILES)
 
         if form.is_valid():
             cleaned_data = form.cleaned_data
+            email = cleaned_data.get('email')
             first_name = cleaned_data.get('first_name')
             last_name = cleaned_data.get('last_name')
             password = cleaned_data.get('password')
-            email = cleaned_data.get('email')
             city = cleaned_data.get('city')
             country = cleaned_data.get('country')
             interest = cleaned_data.get('interest')
+            picture = cleaned_data.get('picture')
 
             user_model = User.objects.get(username=request.user.username, password=request.user.password)
             user_model.first_name = first_name
-            if password != '':
-                user_model.set_password(password)
             user_model.last_name = last_name
             user_model.email = email
+
+            if password != '':
+                user_model.set_password(password)
+
             user_model.save()
+
             app_user_model = AppUser.objects.get(fk_django_user=user_model)
             app_user_model.city = city
             app_user_model.country = country
             app_user_model.interest = interest
+            if picture and picture != '':
+                app_user_model.picture = picture
+
             app_user_model.save()
             return redirect(reverse('biodiversidad:index'))
     else:
@@ -132,7 +143,7 @@ def update_user_view(request):
         form.fields["city"].initial = app_user_model.city
         form.fields["country"].initial = app_user_model.country
         form.fields["interest"].initial = app_user_model.interest
-
+        form.fields['picture'].initial = app_user_model.picture
     context = {
         'form': form
     }
