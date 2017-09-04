@@ -10,7 +10,6 @@ class AbstractUserForm(ModelForm):
     email = forms.EmailField(label='Correo electrónico')
     city = forms.CharField(max_length=100, label='Ciudad')
     country = forms.CharField(max_length=100, label='País')
-    picture = forms.ImageField(label='Imagen de perfil')
     interest = forms.CharField(widget=forms.Textarea(), max_length=1000, label='Interés')
     password = forms.CharField(widget=forms.PasswordInput(), label='Contraseña')
     password2 = forms.CharField(widget=forms.PasswordInput(), label='Confirma tu contraseña')
@@ -24,6 +23,7 @@ class AbstractUserForm(ModelForm):
 
 
 class UserForm(AbstractUserForm):
+    picture = forms.ImageField(label='Imagen de perfil')
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'city', 'country', 'interest', 'password', 'password2', 'picture']
