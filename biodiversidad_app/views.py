@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.db.transaction import atomic
 from biodiversidad_app.models import Species, Category, Comment
 from biodiversidad_app.models import AppUser
 from biodiversidad_app.forms import UserForm, UserFormUpdate
@@ -16,7 +17,7 @@ from biodiversidad_app.forms import UserForm, UserFormUpdate
 def index(request):
     if request.method == 'POST':
         categorySelected = request.POST.get('category', '')
-        if categorySelected !='Todos':
+        if categorySelected != 'Todos':
             category = Category.objects.filter(name=categorySelected)
             species_list = Species.objects.filter(fk_category=category)
             category_list = Category.objects.all()
@@ -64,7 +65,7 @@ def specie_view(request, species_id=None):
         messages.add_message(request, messages.WARNING, 'Lo sentimos, no encontramos la especie que estabas buscando')
         return redirect(reverse('biodiversidad:index'))
 
-
+@atomic
 def add_user_view(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
@@ -98,7 +99,7 @@ def add_user_view(request):
     }
     return render(request, 'biodiversidad_app/_forms/user_registration.html', context)
 
-
+@atomic
 def update_user_view(request):
     if request.method == 'POST':
         form = UserFormUpdate(request.POST, request.FILES)
@@ -146,14 +147,15 @@ def update_user_view(request):
     return render(request, 'biodiversidad_app/_forms/user.html', context)
 
 
-def add_commentary(request,especie_id):
+@atomic
+def add_comment(request, species_id):
     try:
         if request.method == 'POST':
             email = request.POST.get('email', '')
             comentario = request.POST.get('comentario', '')
-            specie_model = Species.objects.get(id = especie_id)
-            commentary_model=Comment(fk_species=specie_model,email=email,comment=comentario)
-            commentary_model.save()
+            specie_model = Species.objects.get(id=species_id)
+            comment_model = Comment(fk_species=specie_model, email=email, comment=comentario)
+            comment_model.save()
             return redirect(reverse('biodiversidad:index'))
     except:
         return redirect(reverse('biodiversidad:index'))
