@@ -46,4 +46,4 @@ class UserForm(AbstractUserForm):
 class UserFormUpdate(AbstractUserForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'city', 'country', 'interest', 'password', 'password2', 'picture']
+        fields = ['first_name', 'last_name', 'email', 'city', 'country', 'interest', 'password', 'password2']

@@ -112,7 +112,6 @@ def update_user_view(request):
             city = cleaned_data.get('city')
             country = cleaned_data.get('country')
             interest = cleaned_data.get('interest')
-            picture = cleaned_data.get('picture')
 
             user_model = User.objects.get(username=request.user.username, password=request.user.password)
             user_model.first_name = first_name
@@ -128,8 +127,6 @@ def update_user_view(request):
             app_user_model.city = city
             app_user_model.country = country
             app_user_model.interest = interest
-            if picture and picture != '':
-                app_user_model.picture = picture
 
             app_user_model.save()
             return redirect(reverse('biodiversidad:index'))
@@ -143,7 +140,6 @@ def update_user_view(request):
         form.fields["city"].initial = app_user_model.city
         form.fields["country"].initial = app_user_model.country
         form.fields["interest"].initial = app_user_model.interest
-        form.fields['picture'].initial = app_user_model.picture
     context = {
         'form': form
     }
