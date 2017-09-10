@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from django.contrib.messages import constants as messages
-from biodiversidad_miso.local_settings import DATABASE_DICT
+from biodiversidad_miso.local_settings import DATABASE_DICT, EMAIL_SETTINGS
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -137,4 +137,11 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert alert-warning',
     messages.ERROR: 'alert alert-danger',
 }
+
+EMAIL_HOST = EMAIL_SETTINGS['EMAIL_HOST']
+EMAIL_HOST_USER = EMAIL_SETTINGS['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = EMAIL_SETTINGS['EMAIL_HOST_PASSWORD']
+EMAIL_PORT = EMAIL_SETTINGS['EMAIL_PORT']
+EMAIL_USE_TLS = EMAIL_SETTINGS['EMAIL_USE_TLS']
+DEFAULT_FROM_EMAIL = EMAIL_SETTINGS['DEFAULT_FROM_EMAIL']
 

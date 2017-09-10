@@ -16,9 +16,9 @@ from biodiversidad_app.forms import UserForm, UserFormUpdate
 
 def index(request):
     if request.method == 'POST':
-        categorySelected = request.POST.get('category', '')
-        if categorySelected != 'Todos':
-            category = Category.objects.filter(name=categorySelected)
+        category_selected = request.POST.get('category', '')
+        if category_selected != 'Todos':
+            category = Category.objects.filter(name=category_selected)
             species_list = Species.objects.filter(fk_category=category)
             category_list = Category.objects.all()
         else:
@@ -57,13 +57,16 @@ def specie_view(request, species_id=None):
     species = Species.objects.filter(id=species_id).first()
     if species:
         comments = Comment.objects.filter(fk_species=species.id)
-        context = {'specie': species,
-                   'comments': comments,
-                   'form':UserForm()}
+        context = {
+            'specie': species,
+            'comments': comments,
+            'form': UserForm()
+        }
         return render(request, 'biodiversidad_app/verEspecie.html', context)
     else:
         messages.add_message(request, messages.WARNING, 'Lo sentimos, no encontramos la especie que estabas buscando')
         return redirect(reverse('biodiversidad:index'))
+
 
 @atomic
 def add_user_view(request):
@@ -98,6 +101,7 @@ def add_user_view(request):
         'form': form
     }
     return render(request, 'biodiversidad_app/_forms/user_registration.html', context)
+
 
 @atomic
 def update_user_view(request):
@@ -134,7 +138,7 @@ def update_user_view(request):
     else:
         form = UserFormUpdate()
         user_model = User.objects.get(username=request.user.username, password=request.user.password)
-        app_user_model = AppUser.objects.get(fk_django_user = user_model)
+        app_user_model = AppUser.objects.get(fk_django_user=user_model)
         form.fields["first_name"].initial = request.user.first_name
         form.fields["last_name"].initial = request.user.last_name
         form.fields["email"].initial = request.user.email
