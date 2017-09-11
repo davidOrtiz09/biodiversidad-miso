@@ -168,7 +168,7 @@ def my_favorites_species(request):
     if request.user.is_authenticated:
         user = AppUser.objects.filter(fk_django_user_id=request.user.id).first()
         if user:
-            species_list = user.favorites_species
+            species_list = user.favorites_species.all()
             if species_list.count() > 0:
                 return render(request, 'biodiversidad_app/my_favorites.html', {'species_list': species_list, 'form': UserForm()})
             else:
