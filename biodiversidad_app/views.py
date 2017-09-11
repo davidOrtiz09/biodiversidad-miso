@@ -99,7 +99,7 @@ def add_user_view(request):
             content = template.render({
                 'name': '{0} {1}'.format(first_name, last_name)
             })
-            send_html_mail('Bienvenido a Biodiversidad G2', content, email)
+            send_html_mail('Bienvenido a Biodiversidad G2', content, [email])
 
             return HttpResponseRedirect(reverse('biodiversidad:index'))
     else:
