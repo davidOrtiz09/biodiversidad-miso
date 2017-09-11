@@ -10,7 +10,7 @@
                 data.id_categoria = id_categoria;
             }
             $.ajax({
-                url: "http://localhost:8000/api/get/species",
+                url: "https://g2-biodiversidad-miso.herokuapp.com/api/get/species",
                 type: "get",
                 data: data,
                 success: function (response) {

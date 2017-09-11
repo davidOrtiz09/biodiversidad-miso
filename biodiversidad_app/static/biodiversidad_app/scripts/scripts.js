@@ -23,7 +23,7 @@ function agregarFavorito(idSpecie, idUser){
     console.log("Valores: ",idSpecie,idUser);
     $.ajax({
         type: "POST",
-        url: "http://localhost:8000/addFavorite/",
+        url: "https://g2-biodiversidad-miso.herokuapp.com/addFavorite/",
         data: JSON.stringify({user:idUser,
                                 specie:idSpecie}),
         contentType: "application/json; charset=utf-8;",
