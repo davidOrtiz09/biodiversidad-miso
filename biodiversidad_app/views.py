@@ -2,10 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login, logout
-from django.core import serializers
-import json
-from django.http import HttpResponseRedirect, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -188,16 +185,3 @@ def delete_favorite(request):
                 messages.add_message(request, messages.SUCCESS, 'La especie favorita se elminó exitosamente')
                 return redirect(reverse('biodiversidad:my-favorites-species'))
     return redirect(reverse('biodiversidad:index'))
-
-
-@csrf_exempt
-def add_favorite(request):
-    if request.method == 'POST':
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        usuario = AppUser.objects.filter(fk_django_user__email=body["user"]).first()
-        especie = Species.objects.filter(id=body["specie"]).first()
-        if usuario and especie:
-            usuario.favorites_species.add(especie)
-            usuario.save()
-        return JsonResponse({"mensaje": "OK"})

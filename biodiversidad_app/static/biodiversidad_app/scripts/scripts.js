@@ -23,7 +23,7 @@ function agregarFavorito(idSpecie, idUser){
     console.log("Valores: ",idSpecie,idUser);
     $.ajax({
         type: "POST",
-        url: "https://g2-biodiversidad-miso.herokuapp.com/addFavorite/",
+        url: "https://g2-biodiversidad-miso.herokuapp.com/api/addFavorite/",
         data: JSON.stringify({user:idUser,
                                 specie:idSpecie}),
         contentType: "application/json; charset=utf-8;",
@@ -34,7 +34,7 @@ function agregarFavorito(idSpecie, idUser){
         failure: function (errMsg) {
             alert("Hubo un error agregando el favorito, por favor vuelve a intentarlo")
         }
-    })
+    });
     return false
 }
 

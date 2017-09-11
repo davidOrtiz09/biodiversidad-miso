@@ -10,6 +10,5 @@ urlpatterns = [
     url(r'^actualizar-usuario/$', views.update_user_view, name='updateUser'),
     url(r'^comentar/(?P<species_id>\d+)/$', views.add_comment, name='addComment'),
     url(r'^mis-favoritos$', views.my_favorites_species, name='my-favorites-species'),
-    url(r'^eliminar-favorito$', views.delete_favorite, name='delete-favorite'),
-    url(r'^addFavorite/$', views.add_favorite, name='addFavorite')
+    url(r'^eliminar-favorito$', views.delete_favorite, name='delete-favorite')
 ]
