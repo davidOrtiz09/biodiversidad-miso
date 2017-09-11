@@ -9,9 +9,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.db.transaction import atomic
-from biodiversidad_app.models import Species, Category, Comment
-from biodiversidad_app.models import AppUser
+from django.template.loader import get_template
+from biodiversidad_app.models import Species, Category, Comment, AppUser
 from biodiversidad_app.forms import UserForm, UserFormUpdate
+from biodiversidad_app.utils import send_html_mail
 
 
 def index(request):
@@ -94,6 +95,12 @@ def add_user_view(request):
 
             app_user_model = AppUser(fk_django_user=user_model, picture=picture, city=city, country=country, interest=interest)
             app_user_model.save()
+            template = get_template('biodiversidad_app/emails/welcome.html')
+            content = template.render({
+                'name': '{0} {1}'.format(first_name, last_name)
+            })
+            send_html_mail('Bienvenido a Biodiversidad G2', content, email)
+
             return HttpResponseRedirect(reverse('biodiversidad:index'))
     else:
         form = UserForm()
