@@ -170,7 +170,7 @@ def my_favorites_species(request):
         if user:
             species_list = user.favorites_species
             if species_list.count() > 0:
-                return render(request, 'biodiversidad_app/my_favorites.html', {'species_list': species_list})
+                return render(request, 'biodiversidad_app/my_favorites.html', {'species_list': species_list, 'form': UserForm()})
             else:
                 messages.add_message(request, messages.WARNING, 'Aun no has agregado especies favoritas')
     return redirect(reverse('biodiversidad:index'))
@@ -183,7 +183,7 @@ def add_favorite(request):
         body = json.loads(body_unicode)
         usuario = AppUser.objects.filter(fk_django_user__email=body["user"]).first()
         especie = Species.objects.filter(id=body["specie"]).first()
-        if usuario and especie :
+        if usuario and especie:
             usuario.favorites_species.add(especie)
             usuario.save()
-        return JsonResponse({"mensaje":"OK"})
+        return JsonResponse({"mensaje": "OK"})
