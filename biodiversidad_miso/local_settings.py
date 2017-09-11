@@ -10,9 +10,9 @@ if is_deployed:
 else:
     DATABASE_DICT = {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'biodiversidad_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'BD2',
+        'USER': 'UsuarioApp',
+        'PASSWORD': '12345a',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

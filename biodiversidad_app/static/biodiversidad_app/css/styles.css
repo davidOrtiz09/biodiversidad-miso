@@ -47,8 +47,8 @@
 .favorite {
     width: 25px;
     position: absolute;
-    top: 29px;
-    right: 6px;
+    top: 7px;
+    left: 30px;
     cursor: pointer;
     transition: all .2s ease-in-out;
 }
