@@ -43,3 +43,13 @@
   opacity: 1;
   right: 0;
 }
+
+.favorite {
+    width: 25px;
+    position: absolute;
+    top: 29px;
+    right: 6px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+.favorite:hover { transform: scale(1.5); }

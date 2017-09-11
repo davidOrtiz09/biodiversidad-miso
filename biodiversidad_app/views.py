@@ -2,7 +2,10 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
+from django.core import serializers
+import json
+from django.http import HttpResponseRedirect, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -163,3 +166,13 @@ def add_comment(request, species_id):
             return redirect(reverse('biodiversidad:index'))
     except:
         return redirect(reverse('biodiversidad:index'))
+
+@csrf_exempt
+def add_favorite(request):
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        #jsonUser = json.loads(request.body)
+        print body["user"]
+        print body["specie"]
+        return JsonResponse({"mensaje":"OK"})
