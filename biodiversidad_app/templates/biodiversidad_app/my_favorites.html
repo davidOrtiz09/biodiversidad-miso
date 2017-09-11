@@ -1,0 +1,22 @@
+{% extends 'biodiversidad_app/_common/_base.html' %}
+{% load static %}
+{% block main %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 class="text-center">Mis especies favoritas</h1>
+                </div>
+            </div>
+            <div class="row">
+                {% for species in species_list %}
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        {% include 'biodiversidad_app/_elements/_species-preview.html' %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

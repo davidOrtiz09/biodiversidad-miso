@@ -10,7 +10,10 @@
         </div>
         <div class="collapse navbar-collapse" id="biodiversidad-navbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'biodiversidad:index' %}">Catalogo</a></li>
+                <li {% if request.path == '/' %}class="active"{% endif %}><a href="{% url 'biodiversidad:index' %}">Catalogo</a></li>
+                {% if user.is_authenticated %}
+                    <li {% if request.path == '/mis-favoritos' %}class="active"{% endif %}><a href="{% url 'biodiversidad:my-favorites-species' %}">Mis especies favoritas</a></li>
+                {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}

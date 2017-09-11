@@ -163,6 +163,19 @@ def add_comment(request, species_id):
     except:
         return redirect(reverse('biodiversidad:index'))
 
+
+def my_favorites_species(request):
+    if request.user.is_authenticated:
+        user = AppUser.objects.filter(fk_django_user_id=request.user.id).first()
+        if user:
+            species_list = user.favorites_species
+            if species_list.count() > 0:
+                return render(request, 'biodiversidad_app/my_favorites.html', {'species_list': species_list})
+            else:
+                messages.add_message(request, messages.WARNING, 'Aun no has agregado especies favoritas')
+    return redirect(reverse('biodiversidad:index'))
+
+
 @csrf_exempt
 def add_favorite(request):
     if request.method == 'POST':

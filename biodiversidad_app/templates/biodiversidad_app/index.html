@@ -1,7 +1,7 @@
 {% extends 'biodiversidad_app/_common/_base.html' %}
 {% load static %}
-{% block main %}
-    <script src="{% static 'biodiversidad_app/scripts/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
+
+{% block scripts %}
     <script>
         function cargar_species() {
             var id_categoria = $('select#category').val();
@@ -53,6 +53,9 @@
             cargar_species();
         });
     </script>
+{% endblock %}
+
+{% block main %}
     <section>
         <div class="container-fluid">
             <div class="row">
@@ -74,16 +77,6 @@
                 <div id="species-container">
 
                 </div>
-                {% comment %}
-                {% for species in species_list %}
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        {% include 'biodiversidad_app/_elements/_species-preview.html' %}
-                    </div>
-                {% endfor %}
-                <div class="col-xs-12">
-                    {% include 'biodiversidad_app/_common/_pagination.html' %}
-                </div>
-                {% endcomment %}
 
                 <!-- Modal -->
                 <div class="modal fade" id="detalleEspecie" role="dialog"></div>

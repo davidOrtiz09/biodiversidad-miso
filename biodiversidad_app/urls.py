@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^registrar-usuario/$', views.add_user_view, name='addUser'),
     url(r'^actualizar-usuario/$', views.update_user_view, name='updateUser'),
     url(r'^comentar/(?P<species_id>\d+)/$', views.add_comment, name='addComment'),
+    url(r'^mis-favoritos$', views.my_favorites_species, name='my-favorites-species'),
     url(r'^addFavorite/$', views.add_favorite, name='addFavorite')
-
 ]
