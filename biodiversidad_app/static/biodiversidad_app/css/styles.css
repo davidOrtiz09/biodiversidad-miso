@@ -53,3 +53,21 @@
     transition: all .2s ease-in-out;
 }
 .favorite:hover { transform: scale(1.5); }
+
+.favorite:hover + .favoriteMessage {
+    visibility: visible;
+    opacity: 1;
+}
+
+.favoriteMessage{
+    float: left;
+    margin-left: 55px;
+    margin-top: 9px;
+    background: #337ab7;
+    padding: 2px 5px 2px 5px;
+    border-radius: 8px;
+    color: white;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}

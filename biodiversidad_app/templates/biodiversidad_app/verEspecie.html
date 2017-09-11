@@ -6,6 +6,9 @@
                 <div class="col-xs-offset-3 col-xs-6">
                     {% if user.is_authenticated %}
                     <img class="favorite" src="../../static/biodiversidad_app/images/favorite.ico" onclick="agregarFavorito({{ specie.id }},'{{ user.email }}')">
+                    <div class="favoriteMessage">
+                        Agregar la especie como favorita
+                    </div>
                     {% endif %}
                     {% include 'biodiversidad_app/_elements/_specie-detail.html' %}
                 </div>
