@@ -1,5 +1,16 @@
 {% extends 'biodiversidad_app/_common/_base.html' %}
 {% load static %}
+
+{% block scripts %}
+
+    <script>
+        $(document).ready(function(){
+            addListener();
+        });
+    </script>
+
+{% endblock %}
+
 {% block main %}
 
     <section>
