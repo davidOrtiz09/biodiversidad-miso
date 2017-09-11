@@ -90,6 +90,9 @@ def add_user_view(request):
             })
             send_html_mail('Bienvenido a Biodiversidad G2', content, [email])
 
+            login(request, user_model)
+
+            messages.add_message(request, messages.SUCCESS, 'El registro se realizó exitosamente')
             return HttpResponseRedirect(reverse('biodiversidad:index'))
     else:
         form = UserForm()
@@ -130,6 +133,7 @@ def update_user_view(request):
             app_user_model.interest = interest
 
             app_user_model.save()
+            messages.add_message(request, messages.SUCCESS, 'Sus cambios fueron guardados exitosamente')
             return redirect(reverse('biodiversidad:index'))
     else:
         form = UserFormUpdate()
