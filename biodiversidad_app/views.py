@@ -15,20 +15,9 @@ from biodiversidad_app.forms import UserForm, UserFormUpdate
 
 
 def index(request):
-    if request.method == 'POST':
-        category_selected = request.POST.get('category', '')
-        if category_selected != 'Todos':
-            category = Category.objects.filter(name=category_selected)
-            species_list = Species.objects.filter(fk_category=category)
-            category_list = Category.objects.all()
-        else:
-            category_list = Category.objects.all()
-            species_list = Species.objects.all()
-    else:
-        category_list = Category.objects.all()
-        species_list = Species.objects.all()
+    category_list = Category.objects.all()
     form = UserForm()
-    context = {'species_list': species_list, 'category_list': category_list, 'form': form}
+    context = {'category_list': category_list, 'form': form}
     return render(request, 'biodiversidad_app/index.html', context)
 
 

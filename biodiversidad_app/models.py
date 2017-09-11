@@ -34,6 +34,15 @@ class Species(models.Model):
     def __str__(self):
         return self.name
 
+    def to_json(self):
+        return {
+            "name": self.name,
+            "fk_category_name": self.fk_category.name,
+            "picture": self.picture.url if self.picture else '',
+            "short_description": self.short_description,
+            "id": self.id
+        }
+
 
 @python_2_unicode_compatible
 class Comment(models.Model):
