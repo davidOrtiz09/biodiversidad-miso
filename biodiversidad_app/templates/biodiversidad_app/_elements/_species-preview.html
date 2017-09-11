@@ -10,8 +10,15 @@
         </div>
         <h4 class="text-center">{{ species.name }}</h4>
         <div class="species-preview-description">
-             {{ species.short_description }}
+             {{ species.short_description|linebreaks }}
         </div>
-        <button type="button" class="botonVerDetalle verDetalle" name="{{species.id}}" style="float: right; vertical-align:middle"><span>Ver Detalle</span></button>
+        <form method="post" action="{% url 'biodiversidad:delete-favorite' %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{ species.id }}" name="species_id">
+            <button class="btn btn-danger">Eliminar favorito</button>
+        </form>
+        {% comment %}
+            <button type="button" class="botonVerDetalle verDetalle" name="{{species.id}}" style="float: right; vertical-align:middle"><span>Ver Detalle</span></button>
+        {% endcomment %}
     </div>
 </div>

@@ -176,6 +176,20 @@ def my_favorites_species(request):
     return redirect(reverse('biodiversidad:index'))
 
 
+@atomic
+def delete_favorite(request):
+    if request.user.is_authenticated:
+        user = AppUser.objects.filter(fk_django_user_id=request.user.id).first()
+        if user and request.method == 'POST':
+            species_id = request.POST.get('species_id', 0)
+            species = Species.objects.filter(id=species_id).first()
+            if species:
+                user.favorites_species.remove(species)
+                messages.add_message(request, messages.SUCCESS, 'La especie favorita se elminó exitosamente')
+                return redirect(reverse('biodiversidad:my-favorites-species'))
+    return redirect(reverse('biodiversidad:index'))
+
+
 @csrf_exempt
 def add_favorite(request):
     if request.method == 'POST':
